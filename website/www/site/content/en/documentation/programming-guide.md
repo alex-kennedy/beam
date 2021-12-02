@@ -1794,7 +1794,7 @@ determined by the input data, or depend on a different branch of your pipeline.
 {{< highlight py >}}
 # Side inputs are available as extra arguments in the DoFn's process method or Map / FlatMap's callable.
 # Optional, positional, and keyword arguments are all supported. Deferred arguments are unwrapped into their
-# actual values. For example, using pvalue.AsIteor(pcoll) at pipeline construction time results in an iterable
+# actual values. For example, using `pvalue.AsIter(pcoll)` at pipeline construction time results in an iterable
 # of the actual elements of pcoll being passed into each process invocation. In this example, side inputs are
 # passed to a FlatMap transform as extra arguments and consumed by filter_using_length.
 words = ...
