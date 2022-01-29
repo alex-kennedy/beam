@@ -29,8 +29,14 @@ RUN apt-get update && \
        libyaml-dev \
        # This is used to speed up the re-installation of the sdk.
        ccache \
+       # These packages are to compile SciPy on ARM
+       libopenblas-dev liblapack-dev \
        && \
     rm -rf /var/lib/apt/lists/*
+
+# Install rust toolchain
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 ####
 # Install required packages for Beam Python SDK and common dependencies used by users.
@@ -39,7 +45,7 @@ RUN apt-get update && \
 COPY target/base_image_requirements.txt /tmp/base_image_requirements.txt
 RUN \
     # use --no-deps to ensure the list includes all transitive dependencies.
-    pip install --no-deps -r /tmp/base_image_requirements.txt && \
+    pip install --no-deps -r /tmp/base_image_requirements.txt  -f https://tf.kmtea.eu/whl/stable.html && \
     python -c "import nltk; nltk.download('stopwords')" && \
     rm /root/nltk_data/corpora/stopwords.zip && \
     # Check that the fast implementation of protobuf is used.

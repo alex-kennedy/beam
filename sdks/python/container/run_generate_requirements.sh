@@ -52,7 +52,7 @@ pip install wheel
 # Install test deps since some integration tests need dependencies,
 # such as pytest, installed in the runner environment.
 pip install --no-cache-dir $SDK_TARBALL[gcp,dataframe,test]
-pip install --no-cache-dir -r $PWD/sdks/python/container/base_image_requirements_manual.txt
+pip install --no-cache-dir -r $PWD/sdks/python/container/base_image_requirements_manual.txt -f https://tf.kmtea.eu/whl/stable.html
 pip uninstall -y apache-beam
 echo "Checking for broken dependencies:"
 pip check
